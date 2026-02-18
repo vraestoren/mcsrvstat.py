@@ -6,8 +6,8 @@ class McSrvStat:
 		self.bedrock_api = "https://api.mcsrvstat.us/bedrock"
 		self.session = Session()
 		self.session.headers = {
-			"user-agent": "Mozilla/5.0 (Android; U; ru-RU) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/33.0",
-			"accept": "application/json"
+			"User-Agent": "Mozilla/5.0 (Android; U; ru-RU) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/33.0",
+			"Accept": "application/json"
 		}
 		self.address = address
 		self.is_bedrock = is_bedrock
