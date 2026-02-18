@@ -1,5 +1,5 @@
 # mcsrvstat.py
-Web-API for [mcsrvstat](https://mcsrvstat.us) website to get info about minecraft server's
+Web-API for [mcsrvstat](https://mcsrvstat.us) an Minecraft Server Status API that provides a comprehensive service which combines the Ping and Query protocols to deliver server status information in JSON format. The API is designed to offer a simplified way to retrieve information about Minecraft servers, including details such as player count, server version, plugins, and more.
 
 ## Example
 ```python3
