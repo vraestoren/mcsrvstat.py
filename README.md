@@ -4,5 +4,7 @@ Web-API for [mcsrvstat](https://mcsrvstat.us) website to get info about minecraf
 ## Example
 ```python3
 import mcsrvstat
-mcsrvstat = mcsrvstat.McSrvStat(address="")
+mcsrvstat = mcsrvstat.McSrvStat(address="", is_bedrock=False)
+online_players = mcsrvstat,get_online_players()
+print(online_players)
 ```
