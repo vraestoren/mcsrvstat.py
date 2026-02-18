@@ -1,14 +1,11 @@
-from requests import get
-
+from requests import Session
 
 class McSrvStat:
-	def __init__(
-			self,
-			address: str,
-			is_bedrock: bool = False) -> None:
+	def __init__(self, address: str, is_bedrock: bool = False) -> None:
 		self.api = "https://api.mcsrvstat.us"
 		self.bedrock_api = "https://api.mcsrvstat.us/bedrock"
-		self.headers = {
+		self.session = Session()
+		self.session.headers = {
 			"user-agent": "Mozilla/5.0 (Android; U; ru-RU) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/33.0",
 			"accept": "application/json"
 		}
@@ -17,31 +14,24 @@ class McSrvStat:
 		self.server = self.get_server_info()
 
 	def get_server_info(self) -> dict:
-		url = f"{self.api}/2/{self.address}"
-		if self.is_bedrock:
-			url = f"{self.bedrock_api}/2/{self.address}"
-		return get(url, headers=self.headers).json()
+		return self.session.get(
+			f"{self.bedrock_api if self.is_bedrock else self.api}/2/{self.address}").json()
 
 	def lookup_server_icon(self) -> dict:
-		return get(
-			f"{self.api}/icon/{self.address}",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/icon/{self.address}").json()
 
 	def check_server_status(self) -> str:
-		url = f"{self.api}/simple/{self.address}"
-		if self.is_bedrock:
-			url = f"{self.bedrock_api}/simple/{self.address}"
-		return get(url, headers=self.headers).text
+		return self.session.get(
+			f"{self.bedrock_api if self.is_bedrock else self.api}/simple/{self.address}").text
 
 	def debug_server(self) -> dict:
-		return get(
-			f"{self.api}/debug/ping/{self.address}",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/debug/ping/{self.address}").json()
 
 	def debug_bedrock_server(self) -> dict:
-		return get(
-			f"{self.api}/debug/bedrock/{self.address}",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/debug/bedrock/{self.address}").json()
 
 	def get_server_motd(
 			self,
@@ -56,8 +46,7 @@ class McSrvStat:
 			return self.server["motd"]["clean"]
 
 	def get_server_plugins(self) -> str:
-		if "plugins" in self.server:
-			return self.server["plugins"]
+		return self.server["plugins"] if "plugins" in self.server else None
 
 	def get_server_debug(self) -> str:
 		return self.server["debug"]
@@ -81,14 +70,10 @@ class McSrvStat:
 		return self.server["protocol"]
 
 	def get_server_software(self) -> str:
-		if "software" in self.server:
-			return self.server["software"]
+		return self.server["software"] if "software" in self.server else None
 
 	def get_server_id(self) -> str:
-		if "serverid" in self.server:
-			return self.server["serverid"]
+		return self.server["serverid"] if "serverid" in self.server else None
 
 	def get_server_gamemode(self) -> str:
-		if "gamemode" in self.server:
-			return self.server["gamemode"]
-		
+		return self.server["gamemode"] if "gamemode" in self.server else None
