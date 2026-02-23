@@ -3,8 +3,9 @@ Web-API for [mcsrvstat](https://mcsrvstat.us) an Minecraft Server Status API tha
 
 ## Example
 ```python
-import mcsrvstat
-mcsrvstat = mcsrvstat.McSrvStat(address="", is_bedrock=False)
+from mcsrvstat import McSrvStat
+
+mcsrvstat = McSrvStat(address="", is_bedrock=False)
 online_players = mcsrvstat,get_online_players()
 print(online_players)
 ```
